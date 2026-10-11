@@ -1,0 +1,20 @@
+{
+  "expo": {
+    "name": "Pankaja Motobay",
+    "slug": "pankaja-motobay-customer",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "backgroundColor": "#101010"
+    },
+    "android": {
+      "package": "lk.pankajamotobay.customer",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/logo.jpg",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "icon": "./assets/logo.jpg"
+  }
+}
