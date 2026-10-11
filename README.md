@@ -1,21 +1,33 @@
-# Pankaja Motobay Customer App
+# Pankaja Motobay Admin Panel
 
-Starter Expo app for Android with customer sign-up/sign-in, published vehicle-care tips, appointment requests, booking history, WhatsApp and call links.
+Responsive web admin panel for managing appointment requests and vehicle care tips.
 
-## Before running
-1. Install Node.js LTS on your computer.
-2. Open this folder in VS Code.
-3. Copy `.env.example` to a new file named `.env`.
-4. Set `EXPO_PUBLIC_SUPABASE_URL` and `EXPO_PUBLIC_SUPABASE_ANON_KEY` from your NEW Supabase project.
-5. Replace WhatsApp and phone placeholders with the business contact numbers.
-6. In Terminal, run:
+## Local setup
+1. Install Node.js LTS.
+2. Copy `.env.example` to `.env`.
+3. Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` from the same NEW Supabase project used by the customer app.
+4. Open a terminal in this folder and run:
    ```bash
    npm install
-   npx expo start
+   npm run dev
    ```
+5. Open the local URL shown by Vite.
 
-Do not put a Supabase `service_role` / secret key in this app. Never upload `.env` to GitHub.
-For the database tables and security policies, use the `schema.sql` from the Admin Panel ZIP's `supabase` folder, or the separate SQL file provided with the project.
+## Database and admin
+1. In a NEW Supabase project, open SQL Editor and run `supabase/schema.sql`.
+2. Create an admin user in Supabase Dashboard > Authentication > Users.
+3. Copy that user's UUID, then run in SQL Editor:
+   ```sql
+   update public.profiles set role = 'admin' where id = 'PASTE-ADMIN-USER-UUID-HERE';
+   ```
+4. Sign in to the panel with that admin user's email and password.
 
-## Notes
-This is a starter project and must be tested against your Supabase project before public release. Android package/build setup and real contact details still need confirming.
+## Deploy to Netlify
+- Create a separate private GitHub repository for this admin panel and upload these files (do not upload `.env`).
+- In Netlify, import that repository.
+- Build command: `npm run build`
+- Publish directory: `dist`
+- Set environment variables `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in Netlify site environment variables, then redeploy.
+
+## Security
+Never use a Supabase service-role/secret key in this browser app. Do not upload `.env`. The public/anon key is intended for client apps; database security relies on RLS policies. This is a starter implementation and needs testing before production use.
